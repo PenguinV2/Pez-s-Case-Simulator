@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Pez's Case Simulator</title>
+    <link rel="stylesheet" media="all" href="PezsCaseSimulator.css">
+    <style>
+
+    </style>
 </head>
 <body>
+    <div id="laufband_background">
+        <div id="laufband"></div>
+        <div id="laufband_zeiger"></div>
+    </div>
 
+    <button onclick="roll(new Kiste(1, 'Kiste1', [new Item1(0, false), new Item2(0, false), new Item3(0, false), new Item4(0, false), new Item5(0, false)]))">roll</button>
+
+    <script src="PezsCaseSimulator.js"></script>
 </body>
 </html>

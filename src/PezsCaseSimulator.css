@@ -1,0 +1,38 @@
+/* Luafband */
+#laufband_background {
+    position: fixed;
+    width: 200px;
+    height: 700px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    overflow: hidden;
+
+    background-color: gray;
+}
+#laufband {
+    position: relative;
+    width: 200px;
+    height: 15000px;
+    top: -14000px;
+
+    background-color: lightgrey;
+}
+#laufband_zeiger {
+    position: absolute;
+    width: 200px;
+    height: 5px;
+    top: 348px;
+
+    background-color: white;
+}
+.block {
+    position: absolute;
+    display: inline;
+    width: 200px;
+    height: 200px;
+
+    background-color: orange;
+}
