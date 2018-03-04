@@ -14,7 +14,11 @@
         <div id="laufband_zeiger"></div>
     </div>
 
-    <button onclick="roll(new Kiste(1, 'Kiste1', [new Item1(0, false), new Item2(0, false), new Item3(0, false), new Item4(0, false), new Item5(0, false)]))">roll</button>
+    <div id="inv_flexContainer"></div>
+
+    <div id="kistenInv_flexContainer">
+        <div class="kistenInv_flexItem" onclick="roll(new Kiste(1, 'Kiste1', [new Item1(0, false), new Item2(0, false), new Item3(0, false), new Item4(0, false), new Item5(0, false)]))">Kiste1</div>
+    </div>
 
     <script src="PezsCaseSimulator.js"></script>
 </body>

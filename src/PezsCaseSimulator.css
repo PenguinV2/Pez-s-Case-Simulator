@@ -1,4 +1,8 @@
-/* Luafband */
+body {
+    font-family: Arial, serif;
+}
+
+/* Laufband */
 #laufband_background {
     position: fixed;
     width: 200px;
@@ -11,6 +15,7 @@
     overflow: hidden;
 
     background-color: gray;
+    z-index: 99;
 }
 #laufband {
     position: relative;
@@ -33,6 +38,63 @@
     display: inline;
     width: 200px;
     height: 200px;
+    text-align: center;
+
+    font-size: 50px;
+}
+
+/* Inventar */
+#inv_flexContainer {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    overflow: auto;
+
+    background-color: black;
+}
+.inv_flexItem {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    padding: 15px;
+
+    background-color: white;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Kisten-Inventar */
+#kistenInv_flexContainer {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    overflow-x: auto;
 
     background-color: orange;
+}
+.kistenInv_flexItem {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    padding: 15px;
+
+    background-color: white;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
 }

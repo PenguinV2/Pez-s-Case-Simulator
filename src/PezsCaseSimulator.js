@@ -40,8 +40,10 @@ function Item5(farbe, zertifiziert) {
 }
 
 
-//Variablem
+//Variablen
 var random;
+var laufbandItems = [];
+var inventar = [];
 
 function roll(kiste) {
     fillLaufband(kiste);
@@ -62,6 +64,26 @@ function roll(kiste) {
     laufband.style.webkitAnimationDuration = "5s";
     laufband.addEventListener("webkitAnimationEnd", rollEndingListener)
 }
+function rollEndingListener() {
+    var laufband = document.getElementById("laufband");
+
+    //Laufband-Animation entfernen
+    laufband.style.removeProperty("-webkit-animation-name");
+    laufband.style.removeProperty("-webkit-animation-duration");
+
+    //nach Animation wollen wir die aktuelle Position festsetzen
+    laufband.style.top = (-14000+random) + "px";
+
+    //Position speichern
+    var position = 14000-random;
+    var whichItem = Math.floor((position+350)/200);
+
+    //Item zum Inventar hinzufügen
+    addItemToInv(laufbandItems[whichItem]);
+
+    laufband.removeEventListener("webkitAnimationEnd", rollEndingListener);
+}
+
 function fillLaufband(kiste) {
     var divElem;
     var randomKlasse;
@@ -105,31 +127,85 @@ function fillLaufband(kiste) {
         randomKlasse = Math.floor((Math.random()*100)+1);   //1-100
         if(randomKlasse <= 40) {
             document.getElementById("blockNr" + i).style.backgroundColor = "blue";
+
+            aktuellesItem = seltenheit0[randomItem(seltenheit0)];
+            aktuellesItem.color = randomColor();
+            aktuellesItem.zertifiziert = certifyItem();
+            document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
+
+            laufbandItems.push(aktuellesItem);
         }
         else if(randomKlasse <= 80 && randomKlasse > 40) {
             document.getElementById("blockNr" + i).style.backgroundColor = "mediumpurple";
+
+            aktuellesItem = seltenheit1[randomItem(seltenheit1)];
+            aktuellesItem.color = randomColor();
+            aktuellesItem.zertifiziert = certifyItem();
+            document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
+
+            laufbandItems.push(aktuellesItem);
         }
         else if(randomKlasse <= 90 && randomKlasse > 80) {
             document.getElementById("blockNr" + i).style.backgroundColor = "red";
+
+            aktuellesItem = seltenheit2[randomItem(seltenheit2)];
+            aktuellesItem.color = randomColor();
+            aktuellesItem.zertifiziert = certifyItem();
+            document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
+
+            laufbandItems.push(aktuellesItem);
         }
         else if(randomKlasse <= 98 && randomKlasse > 90) {
             document.getElementById("blockNr" + i).style.backgroundColor = "yellow";
+
+            aktuellesItem = seltenheit3[randomItem(seltenheit3)];
+            aktuellesItem.color = randomColor();
+            aktuellesItem.zertifiziert = certifyItem();
+            document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
+
+            laufbandItems.push(aktuellesItem);
         }
         else {
             document.getElementById("blockNr" + i).style.backgroundColor = "purple";
+
+            aktuellesItem = seltenheit4[randomItem(seltenheit4)];
+            aktuellesItem.color = randomColor();
+            aktuellesItem.zertifiziert = certifyItem();
+            document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
+
+            laufbandItems.push(aktuellesItem);
         }
     }
 
-
-
 }
-function rollEndingListener() {
-    var laufband = document.getElementById("laufband");
+function randomItem(seltenheit) {
+    return Math.floor(Math.random()*seltenheit.length); //Item der Seltenheitsklasse bestimmen
+}
+function randomColor() {
+    return Math.floor(Math.random()*15);    //0-14
+}
+function certifyItem() {
+    return Math.floor(Math.random()*2);    //0-1
+}
 
-    //Laufband-Animation entfernen
-    laufband.style.removeProperty("-webkit-animation-name");
-    laufband.style.removeProperty("-webkit-animation-duration");
+//***** Laufband *****
+function addItemToInv(item) {
+    var itemAlreadyInInventory = false;
 
-    //nach Animation wollen wir die aktuelle Position festsetzen
-    laufband.style.top = (-14000+random) + "px";
+    for(var i = 0; i < inventar.length; i++) {
+        if(inventar[i].item.id === item.item.id) {
+            //Anzahl um 1 erhöhen
+
+            itemAlreadyInInventory = true;
+            i = inventar.length;
+        }
+    }
+
+    if(itemAlreadyInInventory === false) {
+        var itemDivElem = document.createElement("div");
+        itemDivElem.setAttribute("id", "inv_flexItemID" + item.item.id);
+        itemDivElem.setAttribute("class", "inv_flexItem");
+        itemDivElem.innerHTML = item.item.name;
+        document.getElementById("inv_flexContainer").appendChild(itemDivElem);
+    }
 }
