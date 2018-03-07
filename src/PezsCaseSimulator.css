@@ -70,6 +70,17 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+.inv_flexItemAnzahl {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 30px;
+    height: 18px;
+    border-radius: 10px;
+
+    color: white;
+    background-color: cornflowerblue;
+}
 
 /* Kisten-Inventar */
 #kistenInv_flexContainer {

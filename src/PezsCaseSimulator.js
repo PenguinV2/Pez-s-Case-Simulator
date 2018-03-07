@@ -95,6 +95,7 @@ function fillLaufband(kiste) {
     var seltenheit3 = [];
     var seltenheit4 = [];
     var aktuellesItem;
+    laufbandItems.splice(0, 75);    //alle vorherigen Items löschen
 
     for(var j = 0; j < items.length; j++) {
         switch(items[j].item.klasse) {
@@ -194,7 +195,8 @@ function addItemToInv(item) {
 
     for(var i = 0; i < inventar.length; i++) {
         if(inventar[i].item.id === item.item.id) {
-            //Anzahl um 1 erhöhen
+            var anzahlDiv = document.getElementById("inv_flexItemAnzahlID" + item.item.id);
+            anzahlDiv.innerHTML = (parseInt(anzahlDiv.innerHTML)+1).toString();
 
             itemAlreadyInInventory = true;
             i = inventar.length;
@@ -207,5 +209,13 @@ function addItemToInv(item) {
         itemDivElem.setAttribute("class", "inv_flexItem");
         itemDivElem.innerHTML = item.item.name;
         document.getElementById("inv_flexContainer").appendChild(itemDivElem);
+
+        var itemAnzahlDivElem = document.createElement("div");
+        itemAnzahlDivElem.setAttribute("id", "inv_flexItemAnzahlID" + item.item.id);
+        itemAnzahlDivElem.setAttribute("class", "inv_flexItemAnzahl");
+        itemAnzahlDivElem.innerHTML = 1;
+        itemDivElem.appendChild(itemAnzahlDivElem);
+
+        inventar.push(item);
     }
 }
