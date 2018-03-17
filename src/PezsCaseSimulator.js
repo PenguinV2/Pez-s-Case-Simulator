@@ -44,30 +44,37 @@ function Item5(farbe, zertifiziert) {
 var random;
 var laufbandItems = [];
 var inventar = [];
+var laufbandOpen = false;
+var rollingBlocked = false;
 
 function roll(kiste) {
-    fillLaufband(kiste);
+    if(rollingBlocked === false) {
+        rollingBlocked = true;
+        openLaufband();
+        fillLaufband(kiste);
 
-    var laufband = document.getElementById("laufband");
-    laufband.style.top = "-14000px";
+        var laufband = document.getElementById("laufband");
+        laufband.style.top = "-14000px";
 
-    //Animation
-    random = Math.floor((Math.random()*2000)+10000);    //10000-12000
+        //Animation
+        random = Math.floor((Math.random()*2000)+10000);    //10000-12000
 
-    var laufbandKeyframes = "@-webkit-keyframes roll_ani {0% {top: -14000px} 100% {top: " + (-14000+random) + "px}}";
+        var laufbandKeyframes = "@-webkit-keyframes roll_ani {0% {top: -14000px} 100% {top: " + (-14000+random) + "px}}";
 
-    //Animation hinzufügem
-    var laufbandKeyframesTextNode = document.createTextNode(laufbandKeyframes);
-    document.getElementsByTagName("style")[0].appendChild(laufbandKeyframesTextNode);
+        //Animation hinzufügem
+        var laufbandKeyframesTextNode = document.createTextNode(laufbandKeyframes);
+        document.getElementsByTagName("style")[0].appendChild(laufbandKeyframesTextNode);
 
-    laufband.style.webkitAnimationName = "roll_ani";
-    laufband.style.webkitAnimationDuration = "5s";
-    laufband.addEventListener("webkitAnimationEnd", rollEndingListener)
+        laufband.style.webkitAnimationName = "roll_ani";
+        laufband.style.webkitAnimationDuration = "5s";
+        laufband.addEventListener("webkitAnimationEnd", rollEndingListener)
+    }
 }
 function rollEndingListener() {
-    var laufband = document.getElementById("laufband");
+    rollingBlocked = false;
 
     //Laufband-Animation entfernen
+    var laufband = document.getElementById("laufband");
     laufband.style.removeProperty("-webkit-animation-name");
     laufband.style.removeProperty("-webkit-animation-duration");
 
@@ -80,10 +87,83 @@ function rollEndingListener() {
 
     //Item zum Inventar hinzufügen
     addItemToInv(laufbandItems[whichItem]);
-
     laufband.removeEventListener("webkitAnimationEnd", rollEndingListener);
+
+    //Animation des aktuellen Items (größeres Div, das wieder verschwindet)
+    var biggerDivElem = document.createElement("div");
+    biggerDivElem.setAttribute("class", "bigBlock");
+    biggerDivElem.style.backgroundColor = document.getElementById("blockNr" + whichItem).style.backgroundColor;
+    biggerDivElem.addEventListener("webkitAnimationEnd", function (e) {
+        biggerDivElem.parentNode.removeChild(biggerDivElem);
+    });
+    biggerDivElem.innerHTML = laufbandItems[whichItem].item.name + "<br>";
+    switch(laufbandItems[whichItem].farbe) {
+        case 0:
+            biggerDivElem.innerHTML += "farblos<br>";
+            break;
+        case 1:
+            biggerDivElem.innerHTML += "weiß<br>";
+            break;
+        case 2:
+            biggerDivElem.innerHTML += "grau<br>";
+            break;
+        case 3:
+            biggerDivElem.innerHTML += "schwarz<br>";
+            break;
+        case 4:
+            biggerDivElem.innerHTML += "pink<br>";
+            break;
+        case 5:
+            biggerDivElem.innerHTML += "lila<br>";
+            break;
+        case 6:
+            biggerDivElem.innerHTML += "blau<br>";
+            break;
+        case 7:
+            biggerDivElem.innerHTML += "hellblau<br>";
+            break;
+        case 8:
+            biggerDivElem.innerHTML += "türkis<br>";
+            break;
+        case 9:
+            biggerDivElem.innerHTML += "hellgrün<br>";
+            break;
+        case 10:
+            biggerDivElem.innerHTML += "grün<br>";
+            break;
+        case 11:
+            biggerDivElem.innerHTML += "gelb<br>";
+            break;
+        case 12:
+            biggerDivElem.innerHTML += "gold<br>";
+            break;
+        case 13:
+            biggerDivElem.innerHTML += "orange<br>";
+            break;
+        case 14:
+            biggerDivElem.innerHTML += "rot<br>";
+            break;
+    }
+    if(laufbandItems[whichItem].zertifiziert === 1) {
+        biggerDivElem.innerHTML += "zertifiziert";
+    }
+
+    document.body.appendChild(biggerDivElem);
+
+    //Laufband schließen
+    openLaufband();
 }
 
+function openLaufband() {
+    if(laufbandOpen === false) {
+        document.getElementById("laufband_background").style.display = "inline";
+        laufbandOpen = true;
+    }
+    else {
+        document.getElementById("laufband_background").style.display = "none";
+        laufbandOpen = false;
+    }
+}
 function fillLaufband(kiste) {
     var divElem;
     var randomKlasse;
@@ -130,7 +210,7 @@ function fillLaufband(kiste) {
             document.getElementById("blockNr" + i).style.backgroundColor = "blue";
 
             aktuellesItem = seltenheit0[randomItem(seltenheit0)];
-            aktuellesItem.color = randomColor();
+            aktuellesItem.farbe = randomColor();
             aktuellesItem.zertifiziert = certifyItem();
             document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
 
@@ -140,7 +220,7 @@ function fillLaufband(kiste) {
             document.getElementById("blockNr" + i).style.backgroundColor = "mediumpurple";
 
             aktuellesItem = seltenheit1[randomItem(seltenheit1)];
-            aktuellesItem.color = randomColor();
+            aktuellesItem.farbe = randomColor();
             aktuellesItem.zertifiziert = certifyItem();
             document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
 
@@ -150,7 +230,7 @@ function fillLaufband(kiste) {
             document.getElementById("blockNr" + i).style.backgroundColor = "red";
 
             aktuellesItem = seltenheit2[randomItem(seltenheit2)];
-            aktuellesItem.color = randomColor();
+            aktuellesItem.farbe = randomColor();
             aktuellesItem.zertifiziert = certifyItem();
             document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
 
@@ -160,7 +240,7 @@ function fillLaufband(kiste) {
             document.getElementById("blockNr" + i).style.backgroundColor = "yellow";
 
             aktuellesItem = seltenheit3[randomItem(seltenheit3)];
-            aktuellesItem.color = randomColor();
+            aktuellesItem.farbe = randomColor();
             aktuellesItem.zertifiziert = certifyItem();
             document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
 
@@ -170,7 +250,7 @@ function fillLaufband(kiste) {
             document.getElementById("blockNr" + i).style.backgroundColor = "purple";
 
             aktuellesItem = seltenheit4[randomItem(seltenheit4)];
-            aktuellesItem.color = randomColor();
+            aktuellesItem.farbe = randomColor();
             aktuellesItem.zertifiziert = certifyItem();
             document.getElementById("blockNr" + i).innerHTML = aktuellesItem.item.name;
 
@@ -189,7 +269,7 @@ function certifyItem() {
     return Math.floor(Math.random()*2);    //0-1
 }
 
-//***** Laufband *****
+//***** Inventar *****
 function addItemToInv(item) {
     var itemAlreadyInInventory = false;
 
