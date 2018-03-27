@@ -73,6 +73,7 @@ body {
     position: fixed;
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     padding: 5px;
     top: 0;
     left: 0;
@@ -105,6 +106,17 @@ body {
 
     color: white;
     background-color: cornflowerblue;
+}
+#inv_itemDetails {
+    display: none;
+    position: absolute;
+    width: 200px;
+    height: 325px;
+
+    color: white;
+    background-color: gray;
+    border-radius: 20px;
+    text-align: center;
 }
 
 /* Kisten-Inventar */

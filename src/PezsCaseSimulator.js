@@ -46,6 +46,7 @@ var laufbandItems = [];
 var inventar = [];
 var laufbandOpen = false;
 var rollingBlocked = false;
+var itemDetailsOpen = false;
 
 function roll(kiste) {
     if(rollingBlocked === false) {
@@ -67,7 +68,7 @@ function roll(kiste) {
 
         laufband.style.webkitAnimationName = "roll_ani";
         laufband.style.webkitAnimationDuration = "5s";
-        laufband.addEventListener("webkitAnimationEnd", rollEndingListener)
+        laufband.addEventListener("webkitAnimationEnd", rollEndingListener);
     }
 }
 function rollEndingListener() {
@@ -287,6 +288,7 @@ function addItemToInv(item) {
         var itemDivElem = document.createElement("div");
         itemDivElem.setAttribute("id", "inv_flexItemID" + item.item.id);
         itemDivElem.setAttribute("class", "inv_flexItem");
+        itemDivElem.setAttribute("onclick", "openItemDetails(" + item.item.id + ", event)");
         itemDivElem.innerHTML = item.item.name;
         document.getElementById("inv_flexContainer").appendChild(itemDivElem);
 
@@ -296,6 +298,95 @@ function addItemToInv(item) {
         itemAnzahlDivElem.innerHTML = 1;
         itemDivElem.appendChild(itemAnzahlDivElem);
 
-        inventar.push(item);
+    }
+
+    inventar.push(item);
+}
+function openItemDetails(itemID, event) {
+    if(itemDetailsOpen === false) {
+        document.getElementById("inv_itemDetails").style.display = "inline";
+
+        //Position festlegen
+        if(event.clientY > window.innerHeight-295) {
+            document.getElementById("inv_itemDetails").style.top = (window.innerHeight-385) + "px";
+        }
+        else {
+            document.getElementById("inv_itemDetails").style.top = event.clientY + "px";
+        }
+        if(event.clientX > window.innerWidth-195) {
+            document.getElementById("inv_itemDetails").style.left = (window.innerWidth-205) + "px";
+        }
+        else {
+            document.getElementById("inv_itemDetails").style.left = event.clientX + "px";
+        }
+        itemDetailsOpen = true;
+
+        //Detail-Div füllen
+        for(var i = 0; i < inventar.length; i++) {
+            if(inventar[i].item.id === itemID) {
+                if(inventar[i].zertifiziert === 1) {
+                    document.getElementById("certified").innerHTML = "zertifiziert";
+                }
+
+                switch(inventar[i].farbe) {
+                    case 0:
+                        document.getElementById("color0").innerHTML = "farblos<br>";
+                        break;
+                    case 1:
+                        document.getElementById("color1").innerHTML = "<b>weiß</b><br>";
+                        break;
+                    case 2:
+                        document.getElementById("color2").innerHTML = "<b style='color: gray'>grau</b><br>";
+                        break;
+                    case 3:
+                        document.getElementById("color3").innerHTML = "<b style='color: black'>schwarz</b><br>";
+                        break;
+                    case 4:
+                        document.getElementById("color4").innerHTML = "<b style='color: pink'>pink</b><br>";
+                        break;
+                    case 5:
+                        document.getElementById("color5").innerHTML = "<b style='color: darkviolet'>lila</b><br>";
+                        break;
+                    case 6:
+                        document.getElementById("color6").innerHTML = "<b style='color: blue'>blau</b><br>";
+                        break;
+                    case 7:
+                        document.getElementById("color7").innerHTML = "<b style='color: cornflowerblue'>hellblau</b><br>";
+                        break;
+                    case 8:
+                        document.getElementById("color8").innerHTML = "<b style='color: turquoise'>türkis</b><br>";
+                        break;
+                    case 9:
+                        document.getElementById("color9").innerHTML = "<b style='color: lightgreen'>hellgrün</b><br>";
+                        break;
+                    case 10:
+                        document.getElementById("color10").innerHTML = "<b style='color: green'>grün</b><br>";
+                        break;
+                    case 11:
+                        document.getElementById("color11").innerHTML = "<b style='color: yellow'>gelb</b><br>";
+                        break;
+                    case 12:
+                        document.getElementById("color12").innerHTML = "<b style='color: gold'>gold</b><br>";
+                        break;
+                    case 13:
+                        document.getElementById("color13").innerHTML = "<b style='color: orange'>orange</b><br>";
+                        break;
+                    case 14:
+                        document.getElementById("color14").innerHTML = "<b style='color: red'>rot</b><br>";
+                        break;
+                }
+
+            }
+        }
+    }
+    else {
+        document.getElementById("inv_itemDetails").style.display = "none";
+        itemDetailsOpen = false;
+
+        //Detail-Div leeren
+        document.getElementById("certified").innerHTML = "";
+        for(var j = 0; j < 15; j++) {
+            document.getElementById("color" + j).innerHTML = "";
+        }
     }
 }
