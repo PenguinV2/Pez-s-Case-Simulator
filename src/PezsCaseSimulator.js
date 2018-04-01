@@ -298,6 +298,33 @@ function addItemToInv(item) {
         itemAnzahlDivElem.innerHTML = 1;
         itemDivElem.appendChild(itemAnzahlDivElem);
 
+        switch(item.item.klasse) {
+            case 0:
+                itemDivElem.style.boxShadow = "0 0 89px -11px rgba(0,168,168)";
+                itemDivElem.onmouseover = function (ev) { itemDivElem.style.boxShadow = "0 0 89px 21px rgba(0,168,168)"; };
+                itemDivElem.onmouseleave = function (ev) { itemDivElem.style.boxShadow = "0 0 89px -11px rgba(0,168,168)"; };
+                break;
+            case 1:
+                itemDivElem.style.boxShadow = "0 0 89px -11px rgba(3,17,168)";
+                itemDivElem.onmouseover = function (ev) { itemDivElem.style.boxShadow = "0 0 89px 21px rgba(3,17,168)"; };
+                itemDivElem.onmouseleave = function (ev) { itemDivElem.style.boxShadow = "0 0 89px -11px rgba(3,17,168)"; };
+                break;
+            case 2:
+                itemDivElem.style.boxShadow = "0 0 89px -11px rgba(168,6,0)";
+                itemDivElem.onmouseover = function (ev) { itemDivElem.style.boxShadow = "0 0 89px 21px rgba(168,6,0)"; };
+                itemDivElem.onmouseleave = function (ev) { itemDivElem.style.boxShadow = "0 0 89px -11px rgba(168,6,0)"; };
+                break;
+            case 3:
+                itemDivElem.style.boxShadow = "0 0 89px -11px rgba(167,168,4)";
+                itemDivElem.onmouseover = function (ev) { itemDivElem.style.boxShadow = "0 0 89px 21px rgba(167,168,4)"; };
+                itemDivElem.onmouseleave = function (ev) { itemDivElem.style.boxShadow = "0 0 89px -11px rgba(167,168,4)"; };
+                break;
+            case 4:
+                itemDivElem.style.boxShadow = "0 0 89px -11px rgba(168,0,122)";
+                itemDivElem.onmouseover = function (ev) { itemDivElem.style.boxShadow = "0 0 89px 21px rgba(168,0,122)"; };
+                itemDivElem.onmouseleave = function (ev) { itemDivElem.style.boxShadow = "0 0 89px -11px rgba(168,0,122)"; };
+                break;
+        }
     }
 
     inventar.push(item);
