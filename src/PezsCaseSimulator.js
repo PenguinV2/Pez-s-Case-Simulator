@@ -207,7 +207,7 @@ function fillLaufband(kiste) {
         document.getElementById("blockNr" + i).style.top = 200*i + "px";
 
         randomKlasse = Math.floor((Math.random()*100)+1);   //1-100
-        if(randomKlasse <= 40) {
+        if(randomKlasse <= 55) {
             document.getElementById("blockNr" + i).style.backgroundColor = "blue";
 
             aktuellesItem = seltenheit0[randomItem(seltenheit0)];
@@ -217,7 +217,7 @@ function fillLaufband(kiste) {
 
             laufbandItems.push(aktuellesItem);
         }
-        else if(randomKlasse <= 80 && randomKlasse > 40) {
+        else if(randomKlasse <= 83 && randomKlasse > 55) {
             document.getElementById("blockNr" + i).style.backgroundColor = "mediumpurple";
 
             aktuellesItem = seltenheit1[randomItem(seltenheit1)];
@@ -227,7 +227,7 @@ function fillLaufband(kiste) {
 
             laufbandItems.push(aktuellesItem);
         }
-        else if(randomKlasse <= 90 && randomKlasse > 80) {
+        else if(randomKlasse <= 95 && randomKlasse > 83) {
             document.getElementById("blockNr" + i).style.backgroundColor = "red";
 
             aktuellesItem = seltenheit2[randomItem(seltenheit2)];
@@ -237,7 +237,7 @@ function fillLaufband(kiste) {
 
             laufbandItems.push(aktuellesItem);
         }
-        else if(randomKlasse <= 98 && randomKlasse > 90) {
+        else if(randomKlasse <= 99 && randomKlasse > 95) {
             document.getElementById("blockNr" + i).style.backgroundColor = "yellow";
 
             aktuellesItem = seltenheit3[randomItem(seltenheit3)];
@@ -264,10 +264,21 @@ function randomItem(seltenheit) {
     return Math.floor(Math.random()*seltenheit.length); //Item der Seltenheitsklasse bestimmen
 }
 function randomColor() {
-    return Math.floor(Math.random()*15);    //0-14
+    if(Math.floor(Math.random()*4) === 0) {
+        return Math.floor(Math.random()*14)+1;    //1-14
+    }
+    else {
+        return 0;
+    }
 }
 function certifyItem() {
-    return Math.floor(Math.random()*2);    //0-1
+    if(Math.floor(Math.random()*4) === 0) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+
 }
 
 //***** Inventar *****
